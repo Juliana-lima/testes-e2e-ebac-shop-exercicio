@@ -29,5 +29,19 @@ Cypress.Commands.add('login', (usuario, senha) => {
     cy.get('#username').type(usuario)
     cy.get('#password').type(senha, {log: false})
     cy.get('.woocommerce-form > .button').click()
-});
+})
 
+Cypress.Commands.add('addProdutos', (produto, tamanho, cor, quantidade) =>{
+    
+    cy.get('.tbay-woocommerce-breadcrumb > :nth-child(2)').click().should('contain','Produtos')
+    cy.get('[class="page-numbers"]').eq(1).click()
+    cy.get('.tbay-woocommerce-breadcrumb > :nth-child(3)').should('have.text','Página 2')
+    cy.get('[class="product-block grid"]').contains(produto).click()
+    cy.get('.button-variable-item-'+ tamanho).click()
+    cy.get('.button-variable-item-'+ cor).click()
+    cy.get('.plus').click()
+    cy.get('.input-text').should('have.value', quantidade)
+    cy.get('.single_add_to_cart_button').click()
+    
+    
+});

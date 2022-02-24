@@ -1,4 +1,6 @@
 /// <reference types="cypress" />
+const perfil = require('../fixtures/perfil.json')
+
 let dadosLogin
 
 context('Funcionalidade Login', () => {
@@ -17,13 +19,13 @@ context('Funcionalidade Login', () => {
     });
 
     it('Login com sucesso usando Comando customizado', () => {
-        cy.login(dadosLogin.usuario, dadosLogin.senha)
+        cy.login(dadosLogin.usuario, dadosLogin.senha, {log : false})
         cy.get('.page-title').should('contain', 'Minha conta')
     });
 
     it('Login usando fixture', () => {
         cy.fixture('perfil').then((dados) => {
-            cy.login(dados.usuario, dados.senha)
+            cy.login(dados.usuario, dados.senha, {log : false})
         })
         cy.get('.page-title').should('contain', 'Minha conta')
     });
